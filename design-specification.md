@@ -245,7 +245,7 @@ Key entities and fields relevant to the design. This is not a full schema.
 
 ## Peer Review Checklist *(completed by the reviewing group)*
 
-**Reviewed by:** [Reviewing group name] · **Date:** [Date]
+**Reviewed by:** [BSIT 3A] · **Date:** [September 30, 2026]
 
 | Check | Yes / Partial / No | Reviewer comments |
 |---|---|---|
