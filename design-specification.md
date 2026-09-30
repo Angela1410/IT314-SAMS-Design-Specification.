@@ -50,13 +50,15 @@ SAMS uses a **three-layer architecture**: presentation, application, and data. S
 
 | UML class | Layer | Used by | Notes |
 |---|---|---|---|
-| Student | Data | AttendanceService, AdminService | [Match to your class diagram attributes] |
+| Student | Data | AttendanceService, AdminService | Attributes match the class diagram in [uml-diagrams.md](uml-diagrams.md) |
 | Instructor | Data | AuthService, AttendanceService | |
 | Coordinator | Data | AuthService, NotificationService | |
 | Administrator | Data | AuthService, AdminService | |
-| Class (course section) | Data | AttendanceService, AdminService | |
+| ClassSection ("Class") | Data | AttendanceService, AdminService | Named ClassSection in the class diagram |
+| Enrollment | Data | AttendanceService, AdminService | Links a student to a class |
 | AttendanceRecord | Data | AttendanceService | Core transactional entity |
-| Notification | Data | NotificationService | [Include only if it's in your UML] |
+| Notification | Data | NotificationService | Created when the absence threshold is reached |
+| Setting | Data | AdminService, AttendanceService | Holds the absence threshold |
 
 ### 2.3 Component connections
 
@@ -245,7 +247,7 @@ Key entities and fields relevant to the design. This is not a full schema.
 
 ## Peer Review Checklist *(completed by the reviewing group)*
 
-**Reviewed by:** [BSIT 3A] · **Date:** [September 30, 2026]
+**Reviewed by:** [BSIT 3A] · **Date:** [9/30/2026]
 
 | Check | Yes / Partial / No | Reviewer comments |
 |---|---|---|
