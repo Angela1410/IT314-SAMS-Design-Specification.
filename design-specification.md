@@ -218,7 +218,7 @@ Key entities and fields relevant to the design. This is not a full schema.
 
 ## Peer Review Checklist *(completed by the reviewing group)*
 
-**Reviewed by:** [Group name] · **Date:** [Date]
+**Reviewed by:** [Angela Rose R. Gramatica & Honey Lee Sibugan] · **Date:** [(September 30, 2026]
 
 | Check | Yes / Partial / No | Reviewer comments |
 |---|---|---|
