@@ -55,4 +55,4 @@ SAMS lets instructors record attendance per class session, and lets students, co
 |---|---|---|
 | Angela Rose R. Gramatica | Group member | |
 | Honey Lee Sibugan | Group member | |
-| [Instructor name] | Instructor | |
+| Mitzi Clyde T. Conol | Instructor | |
