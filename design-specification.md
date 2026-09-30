@@ -1,15 +1,13 @@
 # Design Specification — Student Attendance Monitoring System (SAMS)
 
 **Course:** IT314 Software Engineering · **Module 4 Laboratory Activity**
-**Group:** [Group name] · **Members:** [Names]
-**Version:** Draft 1 · **Date:** [Date]
-
-> **How to use this draft:** It is written around SAMS, the practice project from Appendix A. If your group has its own system, keep the structure and replace the content. Anything in `[brackets]` needs your group's input (requirement IDs, Figma link, class names from your UML).
+**Group:** BSIT 3A · **Members:** Angela Rose R. Gramatica, Honey Lee Sibugan
+**Version:** Draft 1 · **Date:** September 30, 2026
 
 **Source artifacts**
-- Approved Requirements Document: [link/file]
-- UML diagrams (use case, class, sequence): [link/file]
-- Figma wireframes & prototype: [Figma link]
+- Requirements Document: [requirements.md](requirements.md)
+- UML diagrams (use case, class, sequence): [uml-diagrams.md](uml-diagrams.md)
+- Figma wireframes & prototype: https://www.figma.com/design/iTHFqFv4a05lcOhUcXsiJX
 
 ---
 
@@ -80,14 +78,14 @@ One entry per wireframe screen. Each answers: **purpose, contents, states, and w
 - **Elements:** Username/ID field, password field, Sign In button, error message area.
 - **States:** *Default* (empty form); *Loading* (button disabled, spinner while AuthService verifies); *Error* (invalid credentials, or account inactive); *Success* (redirect to Dashboard).
 - **Validation:** Both fields required. Sign In is disabled until both are filled. Error messages must not reveal which field was wrong.
-- **Requirement(s):** [REQ-xx]
+- **Requirement(s):** REQ-01, REQ-02, REQ-16
 
 ### 3.2 Dashboard
 - **Purpose:** Give each role a starting point with only the actions they are allowed to use.
 - **Elements:** Greeting and role, navigation menu, role-specific summary (e.g., instructor: today's classes; student: absence count; coordinator: number of flagged students).
 - **States:** *Empty* (no classes assigned or no records yet, with a friendly message); *Loading* (skeleton placeholders); *Error* (summary failed to load, with Retry).
 - **Validation:** None (read-only). Menu items are hidden for roles without permission.
-- **Requirement(s):** [REQ-xx]
+- **Requirement(s):** REQ-02, REQ-11
 
 ### 3.3 Attendance Recording screen
 - **Purpose:** Let an instructor mark each student present or absent for one class on one date.
@@ -101,29 +99,29 @@ One entry per wireframe screen. Each answers: **purpose, contents, states, and w
 - **Validation:**
   - Cannot submit if any student is unmarked.
   - Cannot submit a duplicate record for the same class and date (REQ-10).
-  - Instructor can only record for classes they teach. [REQ-xx]
-- **Requirement(s):** REQ-10, [others]
+  - Instructor can only record for classes they teach. REQ-07
+- **Requirement(s):** REQ-07, REQ-08, REQ-09, REQ-10
 
 ### 3.4 Attendance History screen
 - **Purpose:** View past attendance and, for permitted roles, correct records.
 - **Elements:** Filters (class, student, date range), results table (student, class, date, status, recorded by, last edited by/at), Edit action on eligible rows.
 - **States:** *Empty* (no records match the filters); *Loading*; *Error* (with Retry); *Success* (results shown).
 - **Validation:** Students see only their own records. Editing records the editor and timestamp (REQ-12). [Define who may edit — see Open Questions.]
-- **Requirement(s):** REQ-12, [others]
+- **Requirement(s):** REQ-11, REQ-12, REQ-14
 
 ### 3.5 Flagged Students screen (Coordinator)
 - **Purpose:** Show students whose absences meet or exceed the threshold.
 - **Elements:** List of flagged students with absence count, class, and date flagged.
 - **States:** *Empty* (no students flagged); *Loading*; *Error*.
 - **Validation:** Read-only. Visible to coordinators only.
-- **Requirement(s):** REQ-06
+- **Requirement(s):** REQ-06, REQ-13
 
 ### 3.6 Admin Management screens
 - **Purpose:** Create and maintain users, classes, enrollment, and the absence threshold.
 - **Elements:** List views with Add/Edit/Deactivate actions; form for each entity; threshold setting field.
 - **States:** *Empty* (no entries yet); *Loading*; *Error*; *Success* (saved confirmation).
 - **Validation:** Required fields must be filled; IDs must be unique; threshold must be a positive whole number; a user with attendance history is deactivated, never deleted.
-- **Requirement(s):** [REQ-xx]
+- **Requirement(s):** REQ-03, REQ-04, REQ-05
 
 > **Checklist item:** every screen in the Figma file must appear above. Add a row here for any screen not yet listed (e.g., password reset, profile).
 
@@ -154,7 +152,7 @@ One entry per wireframe screen. Each answers: **purpose, contents, states, and w
 
 **Failure paths:** save failure at step 9b keeps the on-screen marks and offers Retry; a notification failure at step 12 must not undo the saved attendance (it is logged and retried). [Confirm your group's decision.]
 
-*Reference: Module 2 sequence diagram [name/link]; Figma prototype flow [link].*
+*Reference: Sequence diagram in [uml-diagrams.md](uml-diagrams.md); Figma prototype flow https://www.figma.com/design/iTHFqFv4a05lcOhUcXsiJX.*
 
 ---
 
@@ -176,7 +174,7 @@ Key entities and fields relevant to the design. This is not a full schema.
 
 **Data rules**
 - An attendance record cannot exist for a student not enrolled in that class.
-- Records are never physically deleted; corrections are edits with an audit trail.
+- Records are never physically deleted; corrections are edits with an audit trail (REQ-15).
 - Date cannot be in the future. [Confirm.]
 
 ---
@@ -205,20 +203,49 @@ Key entities and fields relevant to the design. This is not a full schema.
 
 ---
 
+## Requirements Referenced
+
+| ID | Requirement |
+|---|---|
+| REQ-01 | Users sign in with institution-issued credentials |
+| REQ-02 | Access is restricted by role (Instructor, Student, Coordinator, Administrator) |
+| REQ-03 | Administrators create, edit, and deactivate user accounts |
+| REQ-04 | Administrators manage classes and student enrollment |
+| REQ-05 | Administrators set the absence threshold |
+| REQ-06 | The system notifies the student and coordinator when a student's absences reach the threshold |
+| REQ-07 | Instructors can view the roster of the classes they teach |
+| REQ-08 | Instructors record each student as present or absent for a class session |
+| REQ-09 | A record cannot be submitted while any student is unmarked |
+| REQ-10 | A duplicate record for the same class and date cannot be submitted |
+| REQ-11 | Students can view their own attendance and absence count |
+| REQ-12 | Edits to a record store who edited it and when |
+| REQ-13 | Coordinators can view attendance across classes and the list of flagged students |
+| REQ-14 | Attendance history can be filtered by class, student, and date range |
+| REQ-15 | Attendance records are never deleted; corrections are edits with an audit trail |
+| REQ-16 | Sessions end on sign-out or after a period of inactivity |
+
 ## Requirements Traceability
 
 | Requirement | Addressed in |
 |---|---|
-| REQ-06 (absence threshold notification) | §3.5, §4 steps 10–12, §5 Notification/Setting |
-| REQ-10 (no duplicate record per class and date) | §3.3, §4 step 8, §5 AttendanceRecord |
-| REQ-12 (edit audit trail) | §3.4, §5 AttendanceRecord |
-| [REQ-xx] | [section] |
+| REQ-01, REQ-16 | §3.1 Login, §4 step 1 |
+| REQ-02 | §2.1 AuthService, §3.2 Dashboard |
+| REQ-03, REQ-04, REQ-05 | §3.6 Admin Management, §5 Setting |
+| REQ-06 | §3.5, §4 steps 10–12, §5 Notification/Setting |
+| REQ-07 | §3.3, §4 steps 3–4 |
+| REQ-08, REQ-09 | §3.3, §4 steps 5–6 |
+| REQ-10 | §3.3, §4 step 8, §5 AttendanceRecord |
+| REQ-11 | §3.2, §3.4 |
+| REQ-12 | §3.4, §5 AttendanceRecord |
+| REQ-13 | §3.5 |
+| REQ-14 | §3.4 |
+| REQ-15 | §5 Data rules |
 
 ---
 
 ## Peer Review Checklist *(completed by the reviewing group)*
 
-**Reviewed by:** [Angela Rose R. Gramatica & Honey Lee Sibugan] · **Date:** [(September 30, 2026]
+**Reviewed by:** [Reviewing group name] · **Date:** [Date]
 
 | Check | Yes / Partial / No | Reviewer comments |
 |---|---|---|
